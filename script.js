@@ -5,9 +5,13 @@ const ctx = canvas.getContext('2d');
 let width = canvas.width = window.innerWidth;
 let height = canvas.height = window.innerHeight;
 
+let lastWidth = window.innerWidth;
 window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    if (Math.abs(window.innerWidth - lastWidth) > 30) {
+        lastWidth = window.innerWidth;
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
 });
 
 class Particle {
@@ -66,13 +70,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const guestName = urlParams.get('to');
     
     const guestNameElement = document.getElementById('guest-name');
+    const coverGuestNameElement = document.getElementById('cover-guest-name');
     const hiddenNameInput = document.getElementById('nama-hidden');
 
     if (guestName) {
         guestNameElement.textContent = guestName;
+        if (coverGuestNameElement) coverGuestNameElement.textContent = guestName;
         hiddenNameInput.value = guestName;
     } else {
         guestNameElement.textContent = "Tamu Undangan";
+        if (coverGuestNameElement) coverGuestNameElement.textContent = "Tamu Undangan";
         hiddenNameInput.value = "Tamu Undangan (Tanpa Parameter)";
     }
     
@@ -123,18 +130,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =========================================
-   4. KONTROL AUDIO & BACKSOUND OTOMATIS
+   4. KONTROL AUDIO & COVER BUKA UNDANGAN
 ========================================= */
 document.addEventListener("DOMContentLoaded", () => {
     const bgMusic = document.getElementById('bg-music');
     const musicToggle = document.getElementById('music-toggle');
+    const cover = document.getElementById('invitation-cover');
+    const btnOpen = document.getElementById('btn-open-invitation');
 
-    if (!bgMusic || !musicToggle) return;
+    if (!bgMusic) return;
 
     // Volume backsound diatur nyaman dan lembut (70%)
     bgMusic.volume = 0.7;
 
     function updateUI(isPlaying) {
+        if (!musicToggle) return;
         if (isPlaying) {
             musicToggle.classList.remove('paused');
             musicToggle.classList.add('playing');
@@ -156,9 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateUI(true);
                 })
                 .catch((error) => {
-                    // Kebijakan browser (Autoplay Policy) menolak pemutaran otomatis sebelum ada interaksi pengguna
                     updateUI(false);
-                    console.info("Autoplay ditangguhkan browser hingga interaksi pengguna pertama:", error.message);
+                    console.info("Autoplay dicegah browser, menunggu interaksi Buka Undangan:", error.message);
                 });
         }
     }
@@ -168,11 +177,44 @@ document.addEventListener("DOMContentLoaded", () => {
         updateUI(false);
     }
 
-    // 1. Percobaan putar otomatis seketika saat halaman dibuka
+    // Fungsi membuka undangan dan memutar musik seketika
+    let isOpened = false;
+    function openInvitation() {
+        if (isOpened) return;
+        isOpened = true;
+
+        // Putar audio seketika menggunakan event interaksi pengguna ini
+        playAudio();
+
+        // Buka cover dengan animasi geser ke atas
+        if (cover) {
+            cover.classList.add('opened');
+        }
+        document.body.classList.remove('locked-scroll');
+
+        // Scroll mulus ke bagian atas halaman utama
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Event klik tombol "Buka Undangan"
+    if (btnOpen) {
+        btnOpen.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openInvitation();
+        });
+    }
+
+    // Fallback: Jika pengguna mengetuk area cover di luar tombol
+    if (cover) {
+        cover.addEventListener('click', () => {
+            openInvitation();
+        });
+    }
+
+    // Coba putar otomatis langsung jika browser mengizinkan
     playAudio();
 
-    // 2. Fallback: jika dibatasi browser Autoplay Policy,
-    // musik akan langsung berputar otomatis saat pengguna menyentuh/mengklik/menggulir halaman
+    // Fallback interaksi pertama jika cover tidak terbuka (misal cover dinonaktifkan)
     const unlockAudio = () => {
         if (bgMusic.paused) {
             playAudio();
@@ -186,14 +228,16 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener(evt, unlockAudio, { passive: true });
     });
 
-    // 3. Tombol manual Play / Pause
-    musicToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (bgMusic.paused) {
-            playAudio();
-        } else {
-            pauseAudio();
-        }
-    });
+    // Tombol manual Play / Pause di pojok layar
+    if (musicToggle) {
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (bgMusic.paused) {
+                playAudio();
+            } else {
+                pauseAudio();
+            }
+        });
+    }
 });
 

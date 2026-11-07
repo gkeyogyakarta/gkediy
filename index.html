@@ -18,12 +18,36 @@
     <!-- Hubungkan ke file CSS terpisah -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="locked-scroll">
     <!-- Canvas Animasi Salju -->
     <canvas id="snow-canvas"></canvas>
 
     <!-- Bingkai Vintage -->
     <div class="vintage-border"></div>
+
+    <!-- Layar Pembuka Undangan (Cover Screen - Membuka & Memutar Musik Seketika) -->
+    <div id="invitation-cover" class="invitation-cover">
+        <div class="cover-content">
+            <div class="star-glow"></div>
+            <div class="cover-badge">✦ 🎄 ✦</div>
+            <p class="cover-theme">Undangan Perayaan Natal</p>
+            <h1 class="cover-title">GKE DIY RECONNECT</h1>
+            <p class="cover-subtheme">"Terang di Tengah Kegelapan"</p>
+
+            <div class="cover-guest-box">
+                <p class="cover-to">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+                <h2 id="cover-guest-name" class="cover-guest-name">Tamu Undangan</h2>
+            </div>
+
+            <button id="btn-open-invitation" class="btn-open-invitation" aria-label="Buka Undangan">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                <span>Buka Undangan</span>
+            </button>
+        </div>
+    </div>
 
     <header class="hero-section">
         <!-- Ilustrasi Utama -->
@@ -79,17 +103,17 @@
         <div class="gallery-container">
             <div class="gallery-track">
 
-                <img src="assets/kebersamaan1.jpg" alt="Kebersamaan 1"> #1
+                <img src="assets/kebersamaan1.jpg" alt="Kebersamaan 1">
 
-                <img src="assets/kebersamaan2.jpeg" alt="Kebersamaan 2"> #2
+                <img src="assets/kebersamaan2.jpeg" alt="Kebersamaan 2">
 
-                <img src="assets/ibadah.jpg" alt="Ibadah 3"> #3
+                <img src="assets/ibadah.jpg" alt="Ibadah 3">
 
-                <img src="assets/bersama.jpeg" alt="Keluarga GKE DIY"> #4
+                <img src="assets/bersama.jpeg" alt="Keluarga GKE DIY">
 
-                <img src="assets/well.jpeg" alt="Keluarga GKE DIY"> #5
+                <img src="assets/well.jpeg" alt="Keluarga GKE DIY">
 
-                <img src="assets/keluarga.jpeg" alt="Keluarga GKE DIY"> #6
+                <img src="assets/keluarga.jpeg" alt="Keluarga GKE DIY">
 
             </div>
         </div>
