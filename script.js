@@ -92,3 +92,50 @@ document.addEventListener("DOMContentLoaded", () => {
 // 3. Integrasi form RSVP ke Google Sheet (Sama dengan sebelumnya, masukkan URL Apps Script Anda)
 const URL_APPS_SCRIPT = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI'; 
 // (Tetap gunakan alur script.js sebelumnya untuk memproses Form & Push API)
+
+// ======================================
+// HERO PHOTO AUTO SLIDESHOW
+// ======================================
+
+
+const heroSlides =
+document.querySelectorAll(".hero-img");
+
+
+let heroIndex = 0;
+
+
+
+if(heroSlides.length > 0){
+
+
+setInterval(()=>{
+
+
+    heroSlides[heroIndex]
+    .classList.remove("active");
+
+
+
+    heroIndex++;
+
+
+
+    if(heroIndex >= heroSlides.length){
+
+        heroIndex = 0;
+
+    }
+
+
+
+    heroSlides[heroIndex]
+    .classList.add("active");
+
+
+
+},5000);
+
+
+
+}
