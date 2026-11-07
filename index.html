@@ -118,6 +118,31 @@
         </section>
     </main>
 
+    <!-- Background Music Audio -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="assets/backsound.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <!-- Tombol Kontrol Musik Mengambang -->
+    <button id="music-toggle" class="music-toggle paused" aria-label="Nyalakan atau matikan musik latar" title="Nyalakan/Matikan Musik">
+        <span class="icon-playing">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+            </svg>
+        </span>
+        <span class="icon-muted">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="2" y1="2" x2="22" y2="22" />
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+            </svg>
+        </span>
+    </button>
+
     <!-- Hubungkan ke file JavaScript terpisah -->
     <script src="script.js"></script>
 </body>

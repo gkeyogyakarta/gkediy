@@ -121,3 +121,79 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+/* =========================================
+   4. KONTROL AUDIO & BACKSOUND OTOMATIS
+========================================= */
+document.addEventListener("DOMContentLoaded", () => {
+    const bgMusic = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
+
+    if (!bgMusic || !musicToggle) return;
+
+    // Volume backsound diatur nyaman dan lembut (70%)
+    bgMusic.volume = 0.7;
+
+    function updateUI(isPlaying) {
+        if (isPlaying) {
+            musicToggle.classList.remove('paused');
+            musicToggle.classList.add('playing');
+            musicToggle.setAttribute('aria-label', 'Matikan Musik Latar');
+            musicToggle.setAttribute('title', 'Matikan Musik');
+        } else {
+            musicToggle.classList.remove('playing');
+            musicToggle.classList.add('paused');
+            musicToggle.setAttribute('aria-label', 'Nyalakan Musik Latar');
+            musicToggle.setAttribute('title', 'Nyalakan Musik');
+        }
+    }
+
+    function playAudio() {
+        const playPromise = bgMusic.play();
+        if (playPromise !== undefined) {
+            playPromise
+                .then(() => {
+                    updateUI(true);
+                })
+                .catch((error) => {
+                    // Kebijakan browser (Autoplay Policy) menolak pemutaran otomatis sebelum ada interaksi pengguna
+                    updateUI(false);
+                    console.info("Autoplay ditangguhkan browser hingga interaksi pengguna pertama:", error.message);
+                });
+        }
+    }
+
+    function pauseAudio() {
+        bgMusic.pause();
+        updateUI(false);
+    }
+
+    // 1. Percobaan putar otomatis seketika saat halaman dibuka
+    playAudio();
+
+    // 2. Fallback: jika dibatasi browser Autoplay Policy,
+    // musik akan langsung berputar otomatis saat pengguna menyentuh/mengklik/menggulir halaman
+    const unlockAudio = () => {
+        if (bgMusic.paused) {
+            playAudio();
+        }
+        ['click', 'touchstart', 'touchend', 'keydown'].forEach((evt) => {
+            window.removeEventListener(evt, unlockAudio);
+        });
+    };
+
+    ['click', 'touchstart', 'touchend', 'keydown'].forEach((evt) => {
+        window.addEventListener(evt, unlockAudio, { passive: true });
+    });
+
+    // 3. Tombol manual Play / Pause
+    musicToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (bgMusic.paused) {
+            playAudio();
+        } else {
+            pauseAudio();
+        }
+    });
+});
+
