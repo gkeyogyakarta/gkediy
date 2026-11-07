@@ -93,3 +93,31 @@ document.addEventListener("DOMContentLoaded", () => {
 const URL_APPS_SCRIPT = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI'; 
 // (Tetap gunakan alur script.js sebelumnya untuk memproses Form & Push API)
 
+
+/* =========================================
+   GALERI FOTO BERGERAK OTOMATIS
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const galleryTrack = document.querySelector(".gallery-track");
+
+    if (galleryTrack) {
+
+        // Menggandakan seluruh foto
+        const galleryImages = Array.from(galleryTrack.children);
+
+        galleryImages.forEach((image) => {
+
+            const clone = image.cloneNode(true);
+
+            // Foto duplikat hanya untuk animasi
+            clone.setAttribute("aria-hidden", "true");
+
+            galleryTrack.appendChild(clone);
+
+        });
+
+    }
+
+});
