@@ -74,79 +74,19 @@ body {
 }
 
 .hero-graphic {
-
-    position:relative;
-
-    display:inline-block;
-
-    margin-bottom:25px;
-
-    overflow:hidden;
-
-    border-radius:50%;
-
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px;
 }
 
 .hero-img {
-
-    width:180px;
-    height:180px;
-
-    object-fit:cover;
-
-    border-radius:50%;
-
-    border:3px solid var(--accent-gold);
-
-    box-shadow:
-    0 0 25px var(--accent-gold-glow);
-
-
-    filter:
-    sepia(0.2)
-    contrast(1.1);
-
-
-    animation:
-    fotoNatal 8s ease-in-out infinite alternate;
-
-
-}
-
-
-
-@keyframes fotoNatal {
-
-
-    0% {
-
-        transform:
-        scale(1)
-        translateX(0)
-        translateY(0);
-
-    }
-
-
-    50% {
-
-        transform:
-        scale(1.08)
-        translateX(-5px)
-        translateY(-5px);
-
-    }
-
-
-    100% {
-
-        transform:
-        scale(1.15)
-        translateX(5px)
-        translateY(0);
-
-    }
-
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent-gold);
+    box-shadow: 0 0 25px var(--accent-gold-glow);
+    filter: sepia(0.2) contrast(1.1);
 }
 
 /* Animasi Bintang */
