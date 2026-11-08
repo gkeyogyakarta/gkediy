@@ -116,12 +116,14 @@ document.addEventListener("DOMContentLoaded", () => {
         ? 'gke_rsvp_general_guest' 
         : 'gke_rsvp_' + encodeURIComponent(guestName.toLowerCase().replace(/\s+/g, '_'));
 
+    // Toggle tampilan jumlah tamu jika "Tidak Hadir"
     function handleKehadiranChange() {
         if (kehadiranSelect.value === 'Tidak Hadir') {
             if (groupJumlah) groupJumlah.style.display = 'none';
             if (jumlahInput) {
                 jumlahInput.value = '0';
                 jumlahInput.required = false;
+                jumlahInput.removeAttribute('min'); // Hapus aturan min=1 agar form bisa lolos validasi
             }
         } else {
             if (groupJumlah) groupJumlah.style.display = 'flex';
@@ -130,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     jumlahInput.value = '1';
                 }
                 jumlahInput.required = true;
+                jumlahInput.setAttribute('min', '1'); // Kembalikan aturan min=1
             }
         }
     }
