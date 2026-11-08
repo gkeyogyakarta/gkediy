@@ -67,7 +67,8 @@ animate();
 /* ===================================================
    2. DYNAMIC GUEST NAME & VALIDASI RSVP PER-TAMU
 =================================================== */
-const URL_APPS_SCRIPT = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI'; 
+// URL Google Apps Script yang sudah dimasukkan
+const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxZvUcNPRroqP9zaMeP-J0fjXTnyJ_V1Nk2gs06K6tLDz2lG_v02H8UWSW8qUfELmf-/exec'; 
 
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -84,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (coverGuestNameElement) coverGuestNameElement.textContent = guestName;
     if (hiddenNameInput) hiddenNameInput.value = guestName;
 
-    // Perbaikan Bug Syntax: Smooth Fade-in effect saat halaman terbuka
+    // Smooth Fade-in effect saat halaman terbuka (Perbaikan Typo idx)
     document.querySelectorAll('section').forEach((sec, idx) => {
         sec.style.opacity = '0';
         sec.style.transform = 'translateY(20px)';
@@ -98,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ----------------------------------------------------
     // VALIDASI FORM KONFIRMASI KEHADIRAN (1x ISI / PERBARUI)
+    // Berdasarkan identitas masing-masing link tamu
     // ----------------------------------------------------
     const rsvpForm = document.getElementById('rsvp-form');
     const kehadiranSelect = document.getElementById('kehadiran');
@@ -112,18 +114,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!rsvpForm) return;
 
+    // Kunci unik penyimpanan per tamu (misal: 'gke_rsvp_bapak_budi')
     const sanitizedKey = isGenericGuest 
         ? 'gke_rsvp_general_guest' 
         : 'gke_rsvp_' + encodeURIComponent(guestName.toLowerCase().replace(/\s+/g, '_'));
 
-    // Toggle tampilan jumlah tamu jika "Tidak Hadir"
+    // Toggle tampilan jumlah tamu jika "Tidak Hadir" (Perbaikan Bug max/min validation HTML)
     function handleKehadiranChange() {
         if (kehadiranSelect.value === 'Tidak Hadir') {
             if (groupJumlah) groupJumlah.style.display = 'none';
             if (jumlahInput) {
                 jumlahInput.value = '0';
                 jumlahInput.required = false;
-                jumlahInput.removeAttribute('min'); // Hapus aturan min=1 agar form bisa lolos validasi
+                jumlahInput.removeAttribute('min'); // Hapus aturan min=1 agar form bisa lolos validasi saat Tidak Hadir
             }
         } else {
             if (groupJumlah) groupJumlah.style.display = 'flex';
@@ -132,18 +135,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     jumlahInput.value = '1';
                 }
                 jumlahInput.required = true;
-                jumlahInput.setAttribute('min', '1'); // Kembalikan aturan min=1
+                jumlahInput.setAttribute('min', '1'); // Kembalikan aturan min=1 saat Hadir
             }
         }
     }
 
     kehadiranSelect.addEventListener('change', handleKehadiranChange);
 
-    // Cek apakah tamu ini sudah pernah mengisi konfirmasi
+    // Cek apakah tamu ini sudah pernah mengisi konfirmasi sebelumnya
     const existingData = localStorage.getItem(sanitizedKey);
     if (existingData) {
         try {
             const parsed = JSON.parse(existingData);
+            // Isi otomatis form dengan data yang sudah disimpan
             if (parsed.kehadiran) {
                 kehadiranSelect.value = parsed.kehadiran;
                 handleKehadiranChange();
@@ -152,9 +156,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 jumlahInput.value = parsed.jumlah;
             }
 
+            // Tampilkan kotak status konfirmasi
             if (statusBadge) {
                 statusBadge.style.display = 'flex';
-                if (badgeTitle) badgeTitle.textContent = `Konfirmasi Tersimpan: ${parsed.kehadiran}`;
+                if (badgeTitle) {
+                    badgeTitle.textContent = `Konfirmasi Tersimpan: ${parsed.kehadiran}`;
+                }
                 if (badgeDesc) {
                     const detail = parsed.kehadiran === 'Hadir' 
                         ? `Kehadiran (${parsed.jumlah} orang) telah tercatat untuk ${guestName}.` 
@@ -162,18 +169,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     badgeDesc.textContent = `${detail} Anda dapat mengubah data di bawah ini jika terdapat perubahan rencana.`;
                 }
             }
-            if (btnText) btnText.textContent = "Perbarui Konfirmasi Kehadiran";
+
+            // Ubah teks tombol menjadi "Perbarui Konfirmasi"
+            if (btnText) {
+                btnText.textContent = "Perbarui Konfirmasi Kehadiran";
+            }
         } catch (e) {
             console.error("Gagal mem-parsing data konfirmasi lokal:", e);
         }
     }
 
-    // Submit handler (Update real-time)
+    // Submit handler (Update real-time ke API & UI)
     rsvpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const kehadiran = kehadiranSelect.value;
-        // Pastikan menangkap value input secara real-time saat disubmit
         const jumlah = kehadiran === 'Tidak Hadir' ? 0 : (parseInt(jumlahInput.value, 10) || 1);
 
         if (!kehadiran) {
@@ -182,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Tampilkan indikator proses
         submitBtn.disabled = true;
         if (btnText) btnText.textContent = "Menyimpan...";
         formStatus.textContent = "Sedang memproses konfirmasi kehadiran Anda...";
@@ -194,10 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
             timestamp: new Date().toISOString()
         };
 
-        // 1. Timpa (overwrite) data lama di perangkat dengan data jumlah yang baru
+        // 1. Simpan ke LocalStorage khusus tamu ini
         localStorage.setItem(sanitizedKey, JSON.stringify(payload));
 
-        // 2. Kirim ke Google Apps Script
+        // 2. Kirim ke Google Apps Script Spreadsheet
         try {
             if (URL_APPS_SCRIPT && !URL_APPS_SCRIPT.includes('URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI')) {
                 const formData = new FormData();
@@ -216,14 +227,16 @@ document.addEventListener("DOMContentLoaded", () => {
             console.warn("Gagal sinkronisasi Google Sheet, data tetap aman di perangkat:", err);
         }
 
-        // 3. Perbarui tampilan UI dengan memperjelas jumlah yang baru
+        // 3. Perbarui tampilan UI
         setTimeout(() => {
             submitBtn.disabled = false;
             if (btnText) btnText.textContent = "Perbarui Konfirmasi Kehadiran";
 
             if (statusBadge) {
                 statusBadge.style.display = 'flex';
-                if (badgeTitle) badgeTitle.textContent = `Konfirmasi Berhasil Diperbarui: ${kehadiran}`;
+                if (badgeTitle) {
+                    badgeTitle.textContent = `Konfirmasi Berhasil Diperbarui: ${kehadiran}`;
+                }
                 if (badgeDesc) {
                     const msg = kehadiran === 'Hadir' 
                         ? `Terima kasih! Kehadiran ${jumlah} orang telah dikonfirmasi untuk ${guestName}.` 
@@ -237,6 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 600);
     });
 });
+
 
 /* ===================================================
    3. GALERI SLIDER & LIGHTBOX (FOTO JELAS & UTUH)
