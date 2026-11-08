@@ -75,9 +75,9 @@ body.locked-scroll {
    2. LAYOUT UTAMA (AGAR RAPI DI LAPTOP)
 ========================================= */
 .container {
-    max-width: 820px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 20px 30px 80px 30px;
+    padding: 20px 25px 80px 25px;
     position: relative;
     z-index: 3;
 }
@@ -88,7 +88,7 @@ body.locked-scroll {
 .hero-section {
     position: relative;
     text-align: center;
-    padding: 95px 20px 45px;
+    padding: 90px 20px 40px;
     background: radial-gradient(circle at top, rgba(212, 175, 55, 0.18) 0%, rgba(22, 18, 14, 0.95) 60%, rgba(15, 14, 12, 1) 100%);
     z-index: 3;
 }
@@ -96,12 +96,12 @@ body.locked-scroll {
 .hero-graphic {
     position: relative;
     display: inline-block;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
 }
 
 .hero-img {
-    width: 180px;
-    height: 180px;
+    width: 170px;
+    height: 170px;
     object-fit: cover;
     object-position: center;
     border-radius: 50%;
@@ -129,7 +129,7 @@ body.locked-scroll {
 }
 
 .hero-tag-box {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .hero-pill {
@@ -159,7 +159,7 @@ body.locked-scroll {
 /* TEMA SHOWCASE */
 .theme-showcase {
     max-width: 720px;
-    margin: 20px auto 25px;
+    margin: 18px auto 25px;
     position: relative;
 }
 
@@ -171,17 +171,17 @@ body.locked-scroll {
     letter-spacing: 4px;
     color: var(--accent-gold);
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
-/* TEMA UTAMA: JAUH LEBIH BESAR DARI SUBTEMA */
+/* TEMA UTAMA */
 .main-theme-heading {
     font-family: var(--font-heading);
-    font-size: clamp(2.3rem, 6.8vw, 3.6rem);
+    font-size: clamp(2.1rem, 5.8vw, 3.2rem);
     font-weight: 700;
     font-style: italic;
-    line-height: 1.22;
-    margin: 10px 0 24px;
+    line-height: 1.2;
+    margin: 8px 0 0;
     color: #fff;
     background: linear-gradient(135deg, #ffffff 10%, #f6e7b2 50%, #d4af37 100%);
     -webkit-background-clip: text;
@@ -190,17 +190,31 @@ body.locked-scroll {
     letter-spacing: 0.5px;
 }
 
-.theme-verse-tag {
-    display: block;
+/* PEMISAH TEKS & AYAT YOHANES 1:5 (SEDIKIT LEBIH KECIL DARI TEMA) */
+.theme-verse-divider, .cover-verse-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 8px auto 20px;
+    max-width: 440px;
+}
+
+.verse-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.45), transparent);
+}
+
+.verse-text {
     font-family: var(--font-heading);
-    font-size: clamp(1.05rem, 3vw, 1.35rem);
-    font-weight: 500;
+    font-size: clamp(1.4rem, 4vw, 1.95rem); /* Sedikit lebih kecil dari Tema */
     font-style: italic;
-    letter-spacing: 2px;
+    font-weight: 600;
     color: var(--accent-gold-light);
-    margin-top: 6px;
-    -webkit-text-fill-color: var(--accent-gold-light);
-    text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
 }
 
 /* SUBTEMA: LEBIH KECIL, RAPI, BERKELUARGA */
@@ -209,7 +223,7 @@ body.locked-scroll {
     border: 1px solid rgba(212, 175, 55, 0.28);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(212, 175, 55, 0.05);
     border-radius: 12px;
-    padding: 18px 25px;
+    padding: 16px 22px;
     margin: 0 auto;
     max-width: 620px;
     backdrop-filter: blur(10px);
@@ -227,22 +241,22 @@ body.locked-scroll {
     background: var(--accent-gold);
     padding: 3px 12px;
     border-radius: 4px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .subtheme-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.2rem, 3.4vw, 1.55rem);
+    font-size: clamp(1.15rem, 3.2vw, 1.45rem);
     color: var(--accent-gold);
     letter-spacing: 2px;
-    margin: 6px 0 8px;
+    margin: 4px 0 6px;
     font-weight: 700;
     text-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 
 .subtheme-desc {
     font-family: var(--font-body);
-    font-size: clamp(0.92rem, 2.3vw, 1.05rem);
+    font-size: clamp(0.92rem, 2.3vw, 1.02rem);
     color: #dfd5c6;
     margin: 0;
     line-height: 1.6;
@@ -253,7 +267,7 @@ body.locked-scroll {
     color: var(--accent-gold);
     font-size: 1.2rem;
     letter-spacing: 8px;
-    margin-top: 30px;
+    margin-top: 25px;
     opacity: 0.85;
 }
 
@@ -261,14 +275,14 @@ body.locked-scroll {
    4. KARTU TAMU & SALAM KEKELUARGAAN
 ========================================= */
 .greeting {
-    margin: 40px 0 60px;
+    margin: 35px 0 50px;
 }
 
 .greeting-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 14px;
-    padding: 40px 30px;
+    padding: 35px 25px;
     text-align: center;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.06);
     backdrop-filter: blur(12px);
@@ -290,16 +304,16 @@ body.locked-scroll {
     font-size: 1.15rem;
     font-style: italic;
     color: var(--accent-gold);
-    margin: 0 0 15px;
+    margin: 0 0 12px;
 }
 
 .name-card {
     display: inline-block;
     border: 1.5px solid var(--accent-gold);
     background: rgba(212, 175, 55, 0.08);
-    padding: 16px 45px;
+    padding: 14px 40px;
     border-radius: 8px;
-    margin: 15px 0 20px;
+    margin: 12px 0 18px;
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.15), inset 0 0 12px rgba(212, 175, 55, 0.08);
     max-width: 90%;
     box-sizing: border-box;
@@ -320,30 +334,30 @@ body.locked-scroll {
     background: linear-gradient(135deg, #fff 20%, #f6e7b2 70%, #d4af37 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-size: clamp(1.35rem, 3.8vw, 2.1rem);
     margin: 0;
     font-weight: 700;
 }
 
 .invitation-text {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     color: #e5ded3;
     max-width: 620px;
-    margin: 0 auto 25px;
+    margin: 0 auto 20px;
     line-height: 1.7;
 }
 
 .bible-verse {
     border-top: 1px solid rgba(212, 175, 55, 0.2);
-    padding-top: 20px;
-    margin-top: 20px;
+    padding-top: 18px;
+    margin-top: 18px;
 }
 
-.verse-text {
+.verse-text-body {
     font-family: var(--font-heading);
     font-style: italic;
     color: var(--accent-gold-light);
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     line-height: 1.6;
     margin: 0 0 6px;
 }
@@ -358,28 +372,29 @@ body.locked-scroll {
 
 /* =========================================
    5. INFORMASI ACARA & DETAIL KARTU
+   (Proporsional 50-50, Foto Menyesuaikan Div)
 ========================================= */
 .event-details {
-    margin: 50px 0;
+    margin: 45px 0;
 }
 
 .section-title-wrap {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 h3 {
     text-align: center;
     font-family: var(--font-heading);
     color: var(--accent-gold);
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    margin: 0 0 8px;
+    font-size: clamp(1.45rem, 3.8vw, 1.95rem);
+    margin: 0 0 6px;
     letter-spacing: 1px;
 }
 
 .section-subtitle {
     font-family: var(--font-body);
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
     margin: 0;
     font-style: italic;
@@ -387,41 +402,45 @@ h3 {
 
 .details-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 22px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
 }
 
-@media (min-width: 650px) {
+@media (max-width: 650px) {
     .details-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
 }
 
 .detail-card {
     background: var(--card-bg);
-    padding: 30px 22px;
-    border-radius: 14px;
+    padding: 24px 20px;
+    border-radius: 12px;
     text-align: center;
     border: 1px solid var(--card-border);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .detail-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
     border-color: var(--accent-gold);
-    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
 }
 
 .card-icon-wrap {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 14px;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 12px;
     border-radius: 50%;
     background: rgba(212, 175, 55, 0.1);
     border: 1px solid rgba(212, 175, 55, 0.3);
@@ -431,7 +450,25 @@ h3 {
 }
 
 .card-icon {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
+}
+
+/* Foto Lokasi Menyesuaikan Div (Tidak Melebar & Tidak Membuat Kartu Lain Mengecil) */
+.location-photo-box {
+    width: 100%;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.location-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
 .detail-card strong {
@@ -439,72 +476,35 @@ h3 {
     font-size: 0.85rem;
     letter-spacing: 2px;
     color: var(--accent-gold);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .detail-primary {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
     font-weight: 600;
     color: #fff;
-    margin: 4px 0;
+    margin: 3px 0;
 }
 
 .detail-highlight {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     color: var(--accent-gold-light);
     font-weight: 600;
-    margin: 4px 0 0;
+    margin: 3px 0 0;
 }
 
-.detail-facility {
-    font-size: 0.96rem;
-    font-weight: 600;
-    color: var(--accent-gold-light);
-    margin: 2px 0 4px;
+.detail-note {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 6px 0 0;
+    font-style: italic;
 }
 
 .detail-secondary {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     color: #d1c6b5;
     margin: 4px 0 15px;
-    line-height: 1.5;
-}
-
-/* Lokasi Card Khusus dengan Foto */
-.location-img-wrap {
-    width: 100%;
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    border: 1px solid rgba(212, 175, 55, 0.35);
-}
-
-.location-photo {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-}
-
-.location-img-wrap:hover .location-photo {
-    transform: scale(1.05);
-}
-
-.location-badge {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
-    background: rgba(18, 14, 10, 0.85);
-    color: var(--accent-gold);
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 4px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    line-height: 1.45;
 }
 
 .btn-maps {
@@ -513,13 +513,13 @@ h3 {
     justify-content: center;
     gap: 8px;
     margin-top: auto;
-    padding: 11px 22px;
+    padding: 10px 22px;
     background: linear-gradient(135deg, #d4af37 0%, #aa8422 100%);
     color: #121212;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -531,47 +531,46 @@ h3 {
 }
 
 /* =========================================
-   6. GALERI FOTO SLIDER (TIDAK TERPOTONG)
+   6. GALERI FOTO SLIDER (RAPI & PROPORSIONAL)
 ========================================= */
 .gallery {
     width: 100%;
     overflow: hidden;
-    margin: 60px 0;
+    margin: 50px 0;
 }
 
 .gallery-container {
     width: 100%;
     overflow: hidden;
     position: relative;
-    padding: 15px 0 25px;
+    padding: 12px 0 20px;
 }
 
 .gallery-track {
     display: flex;
     width: max-content;
-    gap: 18px;
-    animation: slideGallery 34s linear infinite;
+    gap: 16px;
+    animation: slideGallery 35s linear infinite;
     will-change: transform;
 }
 
 .gallery-track img {
-    height: 280px;
-    width: auto;
-    max-width: 440px;
+    width: 290px;
+    height: 220px;
     flex-shrink: 0;
-    object-fit: contain;
-    background: rgba(22, 17, 13, 0.85);
-    border-radius: 12px;
-    border: 2px solid rgba(212, 175, 55, 0.35);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    border: 1.5px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
     cursor: zoom-in;
-    transition: transform 0.35s ease, filter 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .gallery-track img:hover {
-    transform: scale(1.04);
+    transform: scale(1.03);
     border-color: var(--accent-gold);
-    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
 }
 
 @keyframes slideGallery {
@@ -588,24 +587,24 @@ h3 {
 }
 
 /* =========================================
-   7. FORM RSVP & VALIDASI PER-GUEST
+   7. FORM RSVP
 ========================================= */
 .rsvp {
-    margin: 50px 0;
+    margin: 45px 0;
 }
 
 .rsvp form {
     background: var(--card-bg);
-    padding: 38px 30px;
+    padding: 34px 26px;
     border-radius: 14px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     border: 1px solid var(--card-border);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    max-width: 600px;
+    max-width: 580px;
     margin: 0 auto;
 }
 
@@ -613,16 +612,16 @@ h3 {
     background: rgba(46, 125, 50, 0.18);
     border: 1px solid rgba(76, 175, 80, 0.45);
     border-radius: 10px;
-    padding: 14px 18px;
+    padding: 12px 16px;
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     text-align: left;
 }
 
 .status-badge-icon {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     line-height: 1;
     margin-top: 2px;
 }
@@ -630,13 +629,13 @@ h3 {
 .status-badge-content strong {
     display: block;
     color: #81c784;
-    font-size: 0.95rem;
-    margin-bottom: 4px;
+    font-size: 0.92rem;
+    margin-bottom: 3px;
 }
 
 .status-badge-content p {
     color: #e8f5e9;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     margin: 0;
     line-height: 1.45;
 }
@@ -644,34 +643,33 @@ h3 {
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     text-align: left;
 }
 
 .rsvp label {
     font-weight: 600;
     color: var(--accent-gold-light);
-    font-size: 0.95rem;
-    margin-bottom: 0;
+    font-size: 0.94rem;
 }
 
 .form-hint {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: #a89c8a;
     margin-top: 2px;
 }
 
 input, select {
     width: 100%;
-    padding: 13px 16px;
+    padding: 12px 15px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(212, 175, 55, 0.3);
     color: #fff;
     border-radius: 8px;
     box-sizing: border-box;
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 0.98rem;
     transition: border-color 0.25s ease, background 0.25s ease;
 }
 
@@ -679,7 +677,7 @@ input:focus, select:focus {
     outline: none;
     border-color: var(--accent-gold);
     background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
 select option {
@@ -691,13 +689,13 @@ button[type="submit"] {
     background: linear-gradient(135deg, #d4af37 0%, #aa8422 100%);
     color: #121212;
     border: none;
-    padding: 15px;
-    font-size: 1.05rem;
+    padding: 14px;
+    font-size: 1.02rem;
     font-weight: 700;
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    margin-top: 10px;
+    margin-top: 8px;
     box-shadow: 0 5px 20px rgba(212, 175, 55, 0.35);
 }
 
@@ -714,7 +712,7 @@ button[type="submit"]:disabled {
 
 .status-msg {
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     margin-top: 10px;
     font-weight: bold;
 }
@@ -728,140 +726,139 @@ button[type="submit"]:disabled {
 }
 
 /* =========================================
-   8. NARAHUBUNG & MEDIA SOSIAL
+   8. NARAHUBUNG & MEDIA SOSIAL (CENTER & RAPI)
 ========================================= */
 .contact-section {
-    margin: 60px 0;
+    margin: 50px auto;
+    text-align: center;
 }
 
-.contact-grid {
+.contact-container {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 22px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 740px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: stretch;
 }
 
-@media (min-width: 650px) {
-    .contact-grid {
-        grid-template-columns: 1fr 1fr;
+@media (max-width: 650px) {
+    .contact-container {
+        grid-template-columns: 1fr;
     }
 }
 
 .contact-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 30px 24px;
+    border-radius: 12px;
+    padding: 26px 20px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    min-width: 0;
 }
 
 .contact-icon-box {
     font-size: 2rem;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .contact-card h4 {
     font-family: var(--font-heading);
     color: var(--accent-gold);
-    font-size: 1.25rem;
-    margin: 0 0 8px;
+    font-size: 1.2rem;
+    margin: 0 0 6px;
+    text-align: center;
 }
 
 .contact-desc {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     color: var(--text-muted);
-    margin: 0 0 20px;
+    margin: 0 0 16px;
     line-height: 1.5;
+    text-align: center;
 }
 
 .contact-action-group {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
 }
 
-.btn-contact-wa {
+.btn-contact {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
+    width: 100%;
+    max-width: 260px;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+}
+
+.btn-wa {
     background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
     color: #ffffff;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.92rem;
-    text-decoration: none;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-contact-wa:hover {
+.btn-wa:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-    color: #fff;
+    color: #ffffff;
 }
 
-.btn-contact-wa.secondary {
+.btn-wa.secondary {
     background: rgba(37, 211, 102, 0.15);
-    border: 1px solid rgba(37, 211, 102, 0.4);
+    border: 1px solid rgba(37, 211, 102, 0.45);
     color: #72e89d;
     box-shadow: none;
 }
 
-.btn-contact-wa.secondary:hover {
+.btn-wa.secondary:hover {
     background: rgba(37, 211, 102, 0.25);
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    color: #ffffff;
 }
 
-.btn-contact-ig {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.btn-ig {
     background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
     color: #ffffff;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.92rem;
-    text-decoration: none;
     box-shadow: 0 4px 15px rgba(253, 29, 29, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-contact-ig:hover {
+.btn-ig:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(253, 29, 29, 0.5);
-    color: #fff;
+    color: #ffffff;
 }
 
-.btn-contact-mail {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.btn-mail {
     background: rgba(212, 175, 55, 0.12);
     border: 1px solid rgba(212, 175, 55, 0.4);
     color: var(--accent-gold-light);
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.92rem;
-    text-decoration: none;
-    transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.btn-contact-mail:hover {
+.btn-mail:hover {
     transform: translateY(-2px);
     background: rgba(212, 175, 55, 0.22);
-    color: #fff;
+    color: #ffffff;
 }
 
 /* =========================================
@@ -962,8 +959,8 @@ button[type="submit"]:disabled {
 ========================================= */
 .invitation-footer {
     text-align: center;
-    padding: 40px 20px 20px;
-    margin-top: 50px;
+    padding: 35px 20px 20px;
+    margin-top: 45px;
     border-top: 1px solid rgba(212, 175, 55, 0.2);
 }
 
@@ -971,8 +968,8 @@ button[type="submit"]:disabled {
     font-family: var(--font-heading);
     font-style: italic;
     color: var(--accent-gold-light);
-    font-size: 1.1rem;
-    margin: 15px 0 8px;
+    font-size: 1.05rem;
+    margin: 12px 0 8px;
     line-height: 1.6;
 }
 
@@ -1082,7 +1079,7 @@ button.music-toggle.paused .icon-muted {
 }
 
 .cover-content {
-    max-width: 520px;
+    max-width: 500px;
     width: 100%;
     position: relative;
     z-index: 2;
@@ -1117,17 +1114,17 @@ button.music-toggle.paused .icon-muted {
 }
 
 .cover-theme-wrapper {
-    margin: 8px 0 18px;
+    margin: 6px 0 18px;
     width: 100%;
 }
 
 .cover-theme-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.2rem, 6.5vw, 3.2rem);
+    font-size: clamp(2rem, 5.8vw, 3rem);
     font-weight: 700;
     font-style: italic;
     line-height: 1.25;
-    margin: 10px 0 18px;
+    margin: 8px 0 0;
     color: #fff;
     background: linear-gradient(135deg, #ffffff 10%, #f6e7b2 50%, #d4af37 100%);
     -webkit-background-clip: text;
@@ -1149,7 +1146,7 @@ button.music-toggle.paused .icon-muted {
     font-family: var(--font-heading);
     font-size: clamp(1.15rem, 3.2vw, 1.4rem);
     color: var(--accent-gold);
-    margin: 5px 0 6px;
+    margin: 4px 0 6px;
     letter-spacing: 1.5px;
     font-weight: 700;
 }
@@ -1164,7 +1161,7 @@ button.music-toggle.paused .icon-muted {
 }
 
 .cover-guest-box {
-    margin: 15px auto 22px;
+    margin: 14px auto 20px;
     padding: 14px 24px;
     border: 1px solid rgba(212, 175, 55, 0.4);
     background: rgba(212, 175, 55, 0.07);
@@ -1185,7 +1182,7 @@ button.music-toggle.paused .icon-muted {
 .cover-guest-name {
     font-family: var(--font-heading);
     color: var(--accent-gold);
-    font-size: 1.55rem;
+    font-size: 1.5rem;
     margin: 0;
     word-break: break-word;
 }
@@ -1249,14 +1246,14 @@ button.btn-open-invitation:hover {
         padding: 70px 15px 35px;
     }
     .hero-img {
-        width: 145px;
-        height: 145px;
+        width: 140px;
+        height: 140px;
     }
     .main-theme-heading {
-        font-size: 2.15rem;
+        font-size: 2.05rem;
     }
-    .theme-verse-tag {
-        font-size: 1.05rem;
+    .verse-text {
+        font-size: 1.35rem;
     }
     .subtheme-card {
         padding: 14px 16px;
@@ -1285,26 +1282,26 @@ button.btn-open-invitation:hover {
         gap: 16px;
     }
     .detail-card {
-        padding: 24px 16px;
+        padding: 22px 16px;
     }
-    .location-photo {
-        height: 150px;
+    .location-photo-box {
+        height: 110px;
     }
     .gallery-track img {
-        height: 215px;
-        width: auto;
+        width: 230px;
+        height: 175px;
     }
     .rsvp form {
         padding: 24px 18px;
     }
     .contact-card {
-        padding: 24px 18px;
+        padding: 24px 16px;
     }
     .cover-content {
         padding: 10px 0;
     }
     .cover-theme-title {
-        font-size: 2.05rem;
+        font-size: 1.95rem;
     }
     .cover-subtheme-box {
         padding: 12px 14px;
