@@ -103,6 +103,7 @@ body.locked-scroll {
     width: 180px;
     height: 180px;
     object-fit: cover;
+    object-position: center;
     border-radius: 50%;
     border: 3px solid var(--accent-gold);
     box-shadow: 0 0 25px var(--accent-gold-glow);
@@ -187,6 +188,19 @@ body.locked-scroll {
     -webkit-text-fill-color: transparent;
     text-shadow: 0 4px 25px rgba(212, 175, 55, 0.45);
     letter-spacing: 0.5px;
+}
+
+.theme-verse-tag {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: clamp(1.05rem, 3vw, 1.35rem);
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 2px;
+    color: var(--accent-gold-light);
+    margin-top: 6px;
+    -webkit-text-fill-color: var(--accent-gold-light);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.7);
 }
 
 /* SUBTEMA: LEBIH KECIL, RAPI, BERKELUARGA */
@@ -385,14 +399,17 @@ h3 {
 
 .detail-card {
     background: var(--card-bg);
-    padding: 32px 24px;
-    border-radius: 12px;
+    padding: 30px 22px;
+    border-radius: 14px;
     text-align: center;
     border: 1px solid var(--card-border);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .detail-card:hover {
@@ -402,9 +419,9 @@ h3 {
 }
 
 .card-icon-wrap {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 16px;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 14px;
     border-radius: 50%;
     background: rgba(212, 175, 55, 0.1);
     border: 1px solid rgba(212, 175, 55, 0.3);
@@ -414,7 +431,7 @@ h3 {
 }
 
 .card-icon {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
 }
 
 .detail-card strong {
@@ -439,10 +456,55 @@ h3 {
     margin: 4px 0 0;
 }
 
+.detail-facility {
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--accent-gold-light);
+    margin: 2px 0 4px;
+}
+
 .detail-secondary {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: #d1c6b5;
     margin: 4px 0 15px;
+    line-height: 1.5;
+}
+
+/* Lokasi Card Khusus dengan Foto */
+.location-img-wrap {
+    width: 100%;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.location-photo {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.location-img-wrap:hover .location-photo {
+    transform: scale(1.05);
+}
+
+.location-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(18, 14, 10, 0.85);
+    color: var(--accent-gold);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .btn-maps {
@@ -450,14 +512,14 @@ h3 {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 15px;
-    padding: 11px 24px;
+    margin-top: auto;
+    padding: 11px 22px;
     background: linear-gradient(135deg, #d4af37 0%, #aa8422 100%);
     color: #121212;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 700;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -469,7 +531,7 @@ h3 {
 }
 
 /* =========================================
-   6. GALERI FOTO SLIDER HORIZONTAL
+   6. GALERI FOTO SLIDER (TIDAK TERPOTONG)
 ========================================= */
 .gallery {
     width: 100%;
@@ -487,26 +549,27 @@ h3 {
 .gallery-track {
     display: flex;
     width: max-content;
-    gap: 22px;
-    animation: slideGallery 32s linear infinite;
+    gap: 18px;
+    animation: slideGallery 34s linear infinite;
     will-change: transform;
 }
 
 .gallery-track img {
-    width: 360px;
     height: 280px;
+    width: auto;
+    max-width: 440px;
     flex-shrink: 0;
-    object-fit: cover;
+    object-fit: contain;
+    background: rgba(22, 17, 13, 0.85);
     border-radius: 12px;
     border: 2px solid rgba(212, 175, 55, 0.35);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    filter: sepia(0.2) contrast(1.08) brightness(0.92);
-    transition: transform 0.4s ease, filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    cursor: zoom-in;
+    transition: transform 0.35s ease, filter 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .gallery-track img:hover {
-    transform: scale(1.04) rotate(0.5deg);
-    filter: none;
+    transform: scale(1.04);
     border-color: var(--accent-gold);
     box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
 }
@@ -525,7 +588,7 @@ h3 {
 }
 
 /* =========================================
-   7. FORM RSVP
+   7. FORM RSVP & VALIDASI PER-GUEST
 ========================================= */
 .rsvp {
     margin: 50px 0;
@@ -546,11 +609,57 @@ h3 {
     margin: 0 auto;
 }
 
+.rsvp-status-badge {
+    background: rgba(46, 125, 50, 0.18);
+    border: 1px solid rgba(76, 175, 80, 0.45);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.status-badge-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.status-badge-content strong {
+    display: block;
+    color: #81c784;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.status-badge-content p {
+    color: #e8f5e9;
+    font-size: 0.88rem;
+    margin: 0;
+    line-height: 1.45;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
 .rsvp label {
     font-weight: 600;
     color: var(--accent-gold-light);
     font-size: 0.95rem;
-    margin-bottom: -6px;
+    margin-bottom: 0;
+}
+
+.form-hint {
+    display: block;
+    font-size: 0.78rem;
+    color: #a89c8a;
+    margin-top: 2px;
 }
 
 input, select {
@@ -597,6 +706,12 @@ button[type="submit"]:hover {
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.55);
 }
 
+button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 .status-msg {
     text-align: center;
     font-size: 0.95rem;
@@ -604,8 +719,246 @@ button[type="submit"]:hover {
     font-weight: bold;
 }
 
+.status-msg.success {
+    color: #81c784;
+}
+
+.status-msg.loading {
+    color: var(--accent-gold-light);
+}
+
 /* =========================================
-   8. FOOTER PENUTUP
+   8. NARAHUBUNG & MEDIA SOSIAL
+========================================= */
+.contact-section {
+    margin: 60px 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+}
+
+@media (min-width: 650px) {
+    .contact-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.contact-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 30px 24px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.contact-icon-box {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.contact-card h4 {
+    font-family: var(--font-heading);
+    color: var(--accent-gold);
+    font-size: 1.25rem;
+    margin: 0 0 8px;
+}
+
+.contact-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+
+.contact-action-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-contact-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-contact-wa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+    color: #fff;
+}
+
+.btn-contact-wa.secondary {
+    background: rgba(37, 211, 102, 0.15);
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    color: #72e89d;
+    box-shadow: none;
+}
+
+.btn-contact-wa.secondary:hover {
+    background: rgba(37, 211, 102, 0.25);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-contact-ig {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(253, 29, 29, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-contact-ig:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(253, 29, 29, 0.5);
+    color: #fff;
+}
+
+.btn-contact-mail {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: var(--accent-gold-light);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-contact-mail:hover {
+    transform: translateY(-2px);
+    background: rgba(212, 175, 55, 0.22);
+    color: #fff;
+}
+
+/* =========================================
+   9. MODAL LIGHTBOX FOTO
+========================================= */
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.image-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 7, 6, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-box {
+    position: relative;
+    z-index: 2;
+    max-width: 94vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-img {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 2px solid var(--accent-gold);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.9), 0 0 25px var(--accent-gold-glow);
+}
+
+.modal-caption {
+    color: #f5eedf;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-style: italic;
+    margin-top: 12px;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+.modal-close {
+    position: absolute;
+    top: -45px;
+    right: 0;
+    background: rgba(30, 24, 18, 0.9);
+    border: 1.5px solid var(--accent-gold);
+    color: var(--accent-gold);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.modal-close:hover {
+    transform: scale(1.1);
+    background: var(--accent-gold);
+    color: #121212;
+}
+
+/* =========================================
+   10. FOOTER PENUTUP
 ========================================= */
 .invitation-footer {
     text-align: center;
@@ -632,7 +985,7 @@ button[type="submit"]:hover {
 }
 
 /* =========================================
-   9. FLOATING MUSIC TOGGLE BUTTON
+   11. FLOATING MUSIC TOGGLE BUTTON
 ========================================= */
 button.music-toggle {
     position: fixed;
@@ -700,7 +1053,7 @@ button.music-toggle.paused .icon-muted {
 }
 
 /* =========================================
-   10. LAYAR PEMBUKA UNDANGAN (COVER SCREEN)
+   12. LAYAR PEMBUKA UNDANGAN (COVER SCREEN)
 ========================================= */
 .invitation-cover {
     position: fixed;
@@ -874,7 +1227,7 @@ button.btn-open-invitation:hover {
 }
 
 /* =========================================
-   11. PERBAIKAN RESPONSIF DI SEMUA DEVICE
+   13. PERBAIKAN RESPONSIF DI SEMUA DEVICE
 ========================================= */
 @media (max-width: 600px) {
     .vintage-border {
@@ -901,6 +1254,9 @@ button.btn-open-invitation:hover {
     }
     .main-theme-heading {
         font-size: 2.15rem;
+    }
+    .theme-verse-tag {
+        font-size: 1.05rem;
     }
     .subtheme-card {
         padding: 14px 16px;
@@ -931,11 +1287,17 @@ button.btn-open-invitation:hover {
     .detail-card {
         padding: 24px 16px;
     }
+    .location-photo {
+        height: 150px;
+    }
     .gallery-track img {
-        width: 260px;
-        height: 200px;
+        height: 215px;
+        width: auto;
     }
     .rsvp form {
+        padding: 24px 18px;
+    }
+    .contact-card {
         padding: 24px 18px;
     }
     .cover-content {

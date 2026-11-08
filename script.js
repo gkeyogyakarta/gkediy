@@ -64,74 +64,254 @@ function animate() {
 animate();
 
 
-// 2. Dynamic Guest Name
+/* ===================================================
+   2. DYNAMIC GUEST NAME & VALIDASI RSVP PER-TAMU
+=================================================== */
+// Masukkan URL Google Apps Script Anda jika form ingin diteruskan ke Google Spreadsheet
+const URL_APPS_SCRIPT = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI'; 
+
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const guestName = urlParams.get('to');
-    
+    const rawGuest = urlParams.get('to');
+    const guestName = rawGuest ? rawGuest.trim() : "Tamu Undangan";
+    const isGenericGuest = !rawGuest || guestName.toLowerCase() === "tamu undangan";
+
+    // Elemen Nama Tamu
     const guestNameElement = document.getElementById('guest-name');
     const coverGuestNameElement = document.getElementById('cover-guest-name');
     const hiddenNameInput = document.getElementById('nama-hidden');
 
-    if (guestName) {
-        guestNameElement.textContent = guestName;
-        if (coverGuestNameElement) coverGuestNameElement.textContent = guestName;
-        hiddenNameInput.value = guestName;
-    } else {
-        guestNameElement.textContent = "Tamu Undangan";
-        if (coverGuestNameElement) coverGuestNameElement.textContent = "Tamu Undangan";
-        hiddenNameInput.value = "Tamu Undangan (Tanpa Parameter)";
-    }
-    
+    if (guestNameElement) guestNameElement.textContent = guestName;
+    if (coverGuestNameElement) coverGuestNameElement.textContent = guestName;
+    if (hiddenNameInput) hiddenNameInput.value = guestName;
+
     // Smooth Fade-in effect saat halaman terbuka
     document.querySelectorAll('section').forEach((sec, idx) => {
         sec.style.opacity = '0';
         sec.style.transform = 'translateY(20px)';
-        sec.style.transition = `opacity 0.8s ease ${idx * 0.15}s, transform 0.8s ease ${idx * 0.15}s`;
+        sec.style.transition = `opacity 0.8s ease ${idx * 0.12}s, transform 0.8s ease ${idx * 0.12}s`;
         
         setTimeout(() => {
             sec.style.opacity = '1';
             sec.style.transform = 'translateY(0)';
         }, 100);
     });
-});
 
-// 3. Integrasi form RSVP ke Google Sheet (Sama dengan sebelumnya, masukkan URL Apps Script Anda)
-const URL_APPS_SCRIPT = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI'; 
-// (Tetap gunakan alur script.js sebelumnya untuk memproses Form & Push API)
+    // ----------------------------------------------------
+    // VALIDASI FORM KONFIRMASI KEHADIRAN (1x ISI / PERBARUI)
+    // Berdasarkan identitas masing-masing link tamu
+    // ----------------------------------------------------
+    const rsvpForm = document.getElementById('rsvp-form');
+    const kehadiranSelect = document.getElementById('kehadiran');
+    const jumlahInput = document.getElementById('jumlah');
+    const groupJumlah = document.getElementById('group-jumlah');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const formStatus = document.getElementById('form-status');
+    const statusBadge = document.getElementById('rsvp-status-badge');
+    const badgeTitle = document.getElementById('badge-title');
+    const badgeDesc = document.getElementById('badge-desc');
 
+    if (!rsvpForm) return;
 
-/* =========================================
-   GALERI FOTO BERGERAK OTOMATIS
-========================================= */
+    // Kunci unik penyimpanan per tamu (misal: 'gke_rsvp_bapak_budi')
+    const sanitizedKey = isGenericGuest 
+        ? 'gke_rsvp_general_guest' 
+        : 'gke_rsvp_' + encodeURIComponent(guestName.toLowerCase().replace(/\s+/g, '_'));
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    const galleryTrack = document.querySelector(".gallery-track");
-
-    if (galleryTrack) {
-
-        // Menggandakan seluruh foto
-        const galleryImages = Array.from(galleryTrack.children);
-
-        galleryImages.forEach((image) => {
-
-            const clone = image.cloneNode(true);
-
-            // Foto duplikat hanya untuk animasi
-            clone.setAttribute("aria-hidden", "true");
-
-            galleryTrack.appendChild(clone);
-
-        });
-
+    // Toggle tampilan jumlah tamu jika "Tidak Hadir"
+    function handleKehadiranChange() {
+        if (kehadiranSelect.value === 'Tidak Hadir') {
+            if (groupJumlah) groupJumlah.style.display = 'none';
+            if (jumlahInput) {
+                jumlahInput.value = '0';
+                jumlahInput.required = false;
+            }
+        } else {
+            if (groupJumlah) groupJumlah.style.display = 'flex';
+            if (jumlahInput) {
+                if (jumlahInput.value === '0' || !jumlahInput.value) {
+                    jumlahInput.value = '1';
+                }
+                jumlahInput.required = true;
+            }
+        }
     }
 
+    kehadiranSelect.addEventListener('change', handleKehadiranChange);
+
+    // Cek apakah tamu ini sudah pernah mengisi konfirmasi sebelumnya
+    const existingData = localStorage.getItem(sanitizedKey);
+    if (existingData) {
+        try {
+            const parsed = JSON.parse(existingData);
+            // Isi otomatis form dengan data yang sudah disimpan
+            if (parsed.kehadiran) {
+                kehadiranSelect.value = parsed.kehadiran;
+                handleKehadiranChange();
+            }
+            if (parsed.jumlah !== undefined && parsed.kehadiran === 'Hadir') {
+                jumlahInput.value = parsed.jumlah;
+            }
+
+            // Tampilkan kotak status konfirmasi
+            if (statusBadge) {
+                statusBadge.style.display = 'flex';
+                if (badgeTitle) {
+                    badgeTitle.textContent = `Konfirmasi Tersimpan: ${parsed.kehadiran}`;
+                }
+                if (badgeDesc) {
+                    const detail = parsed.kehadiran === 'Hadir' 
+                        ? `Kehadiran (${parsed.jumlah} orang) telah tercatat untuk ${guestName}.` 
+                        : `Pernyataan tidak hadir telah tercatat untuk ${guestName}.`;
+                    badgeDesc.textContent = `${detail} Anda dapat mengubah data di bawah ini jika terdapat perubahan rencana.`;
+                }
+            }
+
+            // Ubah teks tombol menjadi "Perbarui Konfirmasi"
+            if (btnText) {
+                btnText.textContent = "Perbarui Konfirmasi Kehadiran";
+            }
+        } catch (e) {
+            console.error("Gagal mem-parsing data konfirmasi lokal:", e);
+        }
+    }
+
+    // Submit handler
+    rsvpForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const kehadiran = kehadiranSelect.value;
+        const jumlah = kehadiran === 'Tidak Hadir' ? 0 : (parseInt(jumlahInput.value, 10) || 1);
+
+        if (!kehadiran) {
+            formStatus.textContent = "Silakan pilih status kehadiran.";
+            formStatus.className = "status-msg";
+            return;
+        }
+
+        // Tampilkan indikator proses
+        submitBtn.disabled = true;
+        if (btnText) btnText.textContent = "Menyimpan...";
+        formStatus.textContent = "Sedang memproses konfirmasi kehadiran Anda...";
+        formStatus.className = "status-msg loading";
+
+        const payload = {
+            nama: guestName,
+            kehadiran: kehadiran,
+            jumlah: jumlah,
+            timestamp: new Date().toISOString()
+        };
+
+        // 1. Simpan ke LocalStorage khusus tamu ini
+        localStorage.setItem(sanitizedKey, JSON.stringify(payload));
+
+        // 2. Kirim ke Google Apps Script Spreadsheet jika ada
+        try {
+            if (URL_APPS_SCRIPT && !URL_APPS_SCRIPT.includes('URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI')) {
+                const formData = new FormData();
+                formData.append('nama', guestName);
+                formData.append('kehadiran', kehadiran);
+                formData.append('jumlah', jumlah);
+                formData.append('timestamp', payload.timestamp);
+
+                await fetch(URL_APPS_SCRIPT, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                });
+            }
+        } catch (err) {
+            console.warn("Gagal sinkronisasi Google Sheet, data tetap aman di perangkat:", err);
+        }
+
+        // 3. Perbarui tampilan UI
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            if (btnText) btnText.textContent = "Perbarui Konfirmasi Kehadiran";
+
+            if (statusBadge) {
+                statusBadge.style.display = 'flex';
+                if (badgeTitle) {
+                    badgeTitle.textContent = `Konfirmasi Berhasil: ${kehadiran}`;
+                }
+                if (badgeDesc) {
+                    const msg = kehadiran === 'Hadir' 
+                        ? `Terima kasih! Kehadiran (${jumlah} orang) telah dikonfirmasi untuk ${guestName}.` 
+                        : `Terima kasih atas konfirmasinya, ${guestName}. Doa kami menyertai.`;
+                    badgeDesc.textContent = `${msg} Anda tetap dapat memperbarui pilihan ini sewaktu-waktu.`;
+                }
+            }
+
+            formStatus.textContent = "✅ Konfirmasi kehadiran berhasil disimpan!";
+            formStatus.className = "status-msg success";
+        }, 600);
+    });
 });
 
-/* =========================================
+
+/* ===================================================
+   3. GALERI SLIDER & LIGHTBOX (FOTO JELAS & UTUH)
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    const galleryTrack = document.querySelector(".gallery-track");
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalCaption = document.getElementById('modal-caption');
+    const modalClose = document.getElementById('modal-close');
+    const modalOverlay = document.getElementById('modal-overlay');
+
+    if (galleryTrack) {
+        // Gandakan foto agar efek infinite marquee berjalan tanpa jeda
+        const galleryImages = Array.from(galleryTrack.children);
+        galleryImages.forEach((image) => {
+            const clone = image.cloneNode(true);
+            clone.setAttribute("aria-hidden", "true");
+            galleryTrack.appendChild(clone);
+        });
+
+        // Event delegation: Klik foto mana pun untuk memperbesar di Lightbox
+        galleryTrack.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                const img = e.target;
+                if (modalImg && modal) {
+                    modalImg.src = img.src;
+                    if (modalCaption) {
+                        modalCaption.textContent = img.alt || "Dokumentasi Keluarga GKE DIY";
+                    }
+                    modal.classList.add('active');
+                    modal.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        });
+    }
+
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            // Hanya kembalikan scroll jika cover sudah dibuka
+            const cover = document.getElementById('invitation-cover');
+            if (!cover || cover.classList.contains('opened')) {
+                document.body.style.overflow = '';
+            }
+        }
+    }
+
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+});
+
+
+/* ===================================================
    4. KONTROL AUDIO & COVER BUKA UNDANGAN
-========================================= */
+=================================================== */
 document.addEventListener("DOMContentLoaded", () => {
     const bgMusic = document.getElementById('bg-music');
     const musicToggle = document.getElementById('music-toggle');
@@ -140,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!bgMusic) return;
 
-    // Volume backsound diatur nyaman dan lembut (70%)
+    // Volume backsound lembut dan nyaman (70%)
     bgMusic.volume = 0.7;
 
     function updateUI(isPlaying) {
@@ -240,4 +420,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
