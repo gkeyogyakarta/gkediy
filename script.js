@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 if (badgeDesc) {
                     const msg = kehadiran === 'Hadir' 
-                        ? `Terima kasih! Kehadiran (${jumlah} orang) telah dikonfirmasi untuk ${guestName}.` 
+                        ? `Terima kasih! Kehadiran ${jumlah} telah dikonfirmasi untuk ${guestName}.` 
                         : `Terima kasih atas konfirmasinya, ${guestName}. Doa kami menyertai.`;
                     badgeDesc.textContent = `${msg} Anda tetap dapat memperbarui pilihan ini sewaktu-waktu.`;
                 }
