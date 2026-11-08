@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const kehadiran = kehadiranSelect.value;
-        const jumlah = kehadiran === 'Tidak Hadir' ? 0 : (parseInt(jumlahInput.value, 50) || 1);
+        const jumlah = kehadiran === 'Tidak Hadir' ? 0 : (parseInt(jumlahInput.value, 10) || 1);
 
         if (!kehadiran) {
             formStatus.textContent = "Silakan pilih status kehadiran.";
