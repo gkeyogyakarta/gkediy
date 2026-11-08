@@ -67,7 +67,6 @@ animate();
 /* ===================================================
    2. DYNAMIC GUEST NAME & VALIDASI RSVP PER-TAMU
 =================================================== */
-// Masukkan URL Google Apps Script Anda jika form ingin diteruskan ke Google Spreadsheet
 const URL_APPS_SCRIPT = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI'; 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (coverGuestNameElement) coverGuestNameElement.textContent = guestName;
     if (hiddenNameInput) hiddenNameInput.value = guestName;
 
-    // Smooth Fade-in effect saat halaman terbuka
+    // Perbaikan Bug Syntax: Smooth Fade-in effect saat halaman terbuka
     document.querySelectorAll('section').forEach((sec, idx) => {
         sec.style.opacity = '0';
         sec.style.transform = 'translateY(20px)';
@@ -99,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ----------------------------------------------------
     // VALIDASI FORM KONFIRMASI KEHADIRAN (1x ISI / PERBARUI)
-    // Berdasarkan identitas masing-masing link tamu
     // ----------------------------------------------------
     const rsvpForm = document.getElementById('rsvp-form');
     const kehadiranSelect = document.getElementById('kehadiran');
@@ -114,12 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!rsvpForm) return;
 
-    // Kunci unik penyimpanan per tamu (misal: 'gke_rsvp_bapak_budi')
     const sanitizedKey = isGenericGuest 
         ? 'gke_rsvp_general_guest' 
         : 'gke_rsvp_' + encodeURIComponent(guestName.toLowerCase().replace(/\s+/g, '_'));
 
-    // Toggle tampilan jumlah tamu jika "Tidak Hadir"
     function handleKehadiranChange() {
         if (kehadiranSelect.value === 'Tidak Hadir') {
             if (groupJumlah) groupJumlah.style.display = 'none';
@@ -140,12 +136,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     kehadiranSelect.addEventListener('change', handleKehadiranChange);
 
-    // Cek apakah tamu ini sudah pernah mengisi konfirmasi sebelumnya
+    // Cek apakah tamu ini sudah pernah mengisi konfirmasi
     const existingData = localStorage.getItem(sanitizedKey);
     if (existingData) {
         try {
             const parsed = JSON.parse(existingData);
-            // Isi otomatis form dengan data yang sudah disimpan
             if (parsed.kehadiran) {
                 kehadiranSelect.value = parsed.kehadiran;
                 handleKehadiranChange();
@@ -154,12 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 jumlahInput.value = parsed.jumlah;
             }
 
-            // Tampilkan kotak status konfirmasi
             if (statusBadge) {
                 statusBadge.style.display = 'flex';
-                if (badgeTitle) {
-                    badgeTitle.textContent = `Konfirmasi Tersimpan: ${parsed.kehadiran}`;
-                }
+                if (badgeTitle) badgeTitle.textContent = `Konfirmasi Tersimpan: ${parsed.kehadiran}`;
                 if (badgeDesc) {
                     const detail = parsed.kehadiran === 'Hadir' 
                         ? `Kehadiran (${parsed.jumlah} orang) telah tercatat untuk ${guestName}.` 
@@ -167,21 +159,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     badgeDesc.textContent = `${detail} Anda dapat mengubah data di bawah ini jika terdapat perubahan rencana.`;
                 }
             }
-
-            // Ubah teks tombol menjadi "Perbarui Konfirmasi"
-            if (btnText) {
-                btnText.textContent = "Perbarui Konfirmasi Kehadiran";
-            }
+            if (btnText) btnText.textContent = "Perbarui Konfirmasi Kehadiran";
         } catch (e) {
             console.error("Gagal mem-parsing data konfirmasi lokal:", e);
         }
     }
 
-    // Submit handler
+    // Submit handler (Update real-time)
     rsvpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const kehadiran = kehadiranSelect.value;
+        // Pastikan menangkap value input secara real-time saat disubmit
         const jumlah = kehadiran === 'Tidak Hadir' ? 0 : (parseInt(jumlahInput.value, 10) || 1);
 
         if (!kehadiran) {
@@ -190,7 +179,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Tampilkan indikator proses
         submitBtn.disabled = true;
         if (btnText) btnText.textContent = "Menyimpan...";
         formStatus.textContent = "Sedang memproses konfirmasi kehadiran Anda...";
@@ -203,10 +191,10 @@ document.addEventListener("DOMContentLoaded", () => {
             timestamp: new Date().toISOString()
         };
 
-        // 1. Simpan ke LocalStorage khusus tamu ini
+        // 1. Timpa (overwrite) data lama di perangkat dengan data jumlah yang baru
         localStorage.setItem(sanitizedKey, JSON.stringify(payload));
 
-        // 2. Kirim ke Google Apps Script Spreadsheet jika ada
+        // 2. Kirim ke Google Apps Script
         try {
             if (URL_APPS_SCRIPT && !URL_APPS_SCRIPT.includes('URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI')) {
                 const formData = new FormData();
@@ -225,30 +213,27 @@ document.addEventListener("DOMContentLoaded", () => {
             console.warn("Gagal sinkronisasi Google Sheet, data tetap aman di perangkat:", err);
         }
 
-        // 3. Perbarui tampilan UI
+        // 3. Perbarui tampilan UI dengan memperjelas jumlah yang baru
         setTimeout(() => {
             submitBtn.disabled = false;
             if (btnText) btnText.textContent = "Perbarui Konfirmasi Kehadiran";
 
             if (statusBadge) {
                 statusBadge.style.display = 'flex';
-                if (badgeTitle) {
-                    badgeTitle.textContent = `Konfirmasi Berhasil: ${kehadiran}`;
-                }
+                if (badgeTitle) badgeTitle.textContent = `Konfirmasi Berhasil Diperbarui: ${kehadiran}`;
                 if (badgeDesc) {
                     const msg = kehadiran === 'Hadir' 
-                        ? `Terima kasih! Kehadiran ${jumlah} telah dikonfirmasi untuk ${guestName}.` 
+                        ? `Terima kasih! Kehadiran ${jumlah} orang telah dikonfirmasi untuk ${guestName}.` 
                         : `Terima kasih atas konfirmasinya, ${guestName}. Doa kami menyertai.`;
                     badgeDesc.textContent = `${msg} Anda tetap dapat memperbarui pilihan ini sewaktu-waktu.`;
                 }
             }
 
-            formStatus.textContent = "✅ Konfirmasi kehadiran berhasil disimpan!";
+            formStatus.textContent = "✅ Konfirmasi kehadiran berhasil diperbarui!";
             formStatus.className = "status-msg success";
         }, 600);
     });
 });
-
 
 /* ===================================================
    3. GALERI SLIDER & LIGHTBOX (FOTO JELAS & UTUH)
