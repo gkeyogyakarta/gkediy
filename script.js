@@ -422,3 +422,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+const inputFoto = document.getElementById("foto-upload");
+const previewFoto = document.getElementById("preview-foto");
+
+inputFoto.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            previewFoto.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
