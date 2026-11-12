@@ -67,7 +67,7 @@ animate();
 /* ===================================================
    2. DYNAMIC GUEST NAME & VALIDASI RSVP PER-TAMU
 =================================================== */
-// URL Google Apps Script yang sudah dimasukkan
+// URL Google Apps Script
 const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxZvUcNPRroqP9zaMeP-J0fjXTnyJ_V1Nk2gs06K6tLDz2lG_v02H8UWSW8qUfELmf-/exec'; 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (coverGuestNameElement) coverGuestNameElement.textContent = guestName;
     if (hiddenNameInput) hiddenNameInput.value = guestName;
 
-    // Smooth Fade-in effect saat halaman terbuka (Perbaikan Typo idx)
+    // Smooth Fade-in effect saat halaman terbuka (Syntax Error telah diperbaiki)
     document.querySelectorAll('section').forEach((sec, idx) => {
         sec.style.opacity = '0';
         sec.style.transform = 'translateY(20px)';
@@ -98,8 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ----------------------------------------------------
-    // VALIDASI FORM KONFIRMASI KEHADIRAN (1x ISI / PERBARUI)
-    // Berdasarkan identitas masing-masing link tamu
+    // VALIDASI FORM KONFIRMASI KEHADIRAN
     // ----------------------------------------------------
     const rsvpForm = document.getElementById('rsvp-form');
     const kehadiranSelect = document.getElementById('kehadiran');
@@ -114,19 +113,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!rsvpForm) return;
 
-    // Kunci unik penyimpanan per tamu (misal: 'gke_rsvp_bapak_budi')
+    // Kunci unik penyimpanan per tamu
     const sanitizedKey = isGenericGuest 
         ? 'gke_rsvp_general_guest' 
         : 'gke_rsvp_' + encodeURIComponent(guestName.toLowerCase().replace(/\s+/g, '_'));
 
-    // Toggle tampilan jumlah tamu jika "Tidak Hadir" (Perbaikan Bug max/min validation HTML)
+    // Toggle tampilan jumlah tamu jika "Tidak Hadir"
     function handleKehadiranChange() {
         if (kehadiranSelect.value === 'Tidak Hadir') {
             if (groupJumlah) groupJumlah.style.display = 'none';
             if (jumlahInput) {
                 jumlahInput.value = '0';
                 jumlahInput.required = false;
-                jumlahInput.removeAttribute('min'); // Hapus aturan min=1 agar form bisa lolos validasi saat Tidak Hadir
+                jumlahInput.removeAttribute('min');
             }
         } else {
             if (groupJumlah) groupJumlah.style.display = 'flex';
@@ -135,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     jumlahInput.value = '1';
                 }
                 jumlahInput.required = true;
-                jumlahInput.setAttribute('min', '1'); // Kembalikan aturan min=1 saat Hadir
+                jumlahInput.setAttribute('min', '1');
             }
         }
     }
@@ -147,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (existingData) {
         try {
             const parsed = JSON.parse(existingData);
-            // Isi otomatis form dengan data yang sudah disimpan
             if (parsed.kehadiran) {
                 kehadiranSelect.value = parsed.kehadiran;
                 handleKehadiranChange();
@@ -156,7 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 jumlahInput.value = parsed.jumlah;
             }
 
-            // Tampilkan kotak status konfirmasi
             if (statusBadge) {
                 statusBadge.style.display = 'flex';
                 if (badgeTitle) {
@@ -170,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            // Ubah teks tombol menjadi "Perbarui Konfirmasi"
             if (btnText) {
                 btnText.textContent = "Perbarui Konfirmasi Kehadiran";
             }
@@ -192,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Tampilkan indikator proses
         submitBtn.disabled = true;
         if (btnText) btnText.textContent = "Menyimpan...";
         formStatus.textContent = "Sedang memproses konfirmasi kehadiran Anda...";
@@ -205,12 +200,12 @@ document.addEventListener("DOMContentLoaded", () => {
             timestamp: new Date().toISOString()
         };
 
-        // 1. Simpan ke LocalStorage khusus tamu ini
+        // Simpan ke LocalStorage khusus tamu ini
         localStorage.setItem(sanitizedKey, JSON.stringify(payload));
 
-        // 2. Kirim ke Google Apps Script Spreadsheet
+        // Kirim ke Google Apps Script Spreadsheet
         try {
-            if (URL_APPS_SCRIPT && !URL_APPS_SCRIPT.includes('URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DI_SINI')) {
+            if (URL_APPS_SCRIPT) {
                 const formData = new FormData();
                 formData.append('nama', guestName);
                 formData.append('kehadiran', kehadiran);
@@ -227,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.warn("Gagal sinkronisasi Google Sheet, data tetap aman di perangkat:", err);
         }
 
-        // 3. Perbarui tampilan UI
+        // Perbarui tampilan UI
         setTimeout(() => {
             submitBtn.disabled = false;
             if (btnText) btnText.textContent = "Perbarui Konfirmasi Kehadiran";
@@ -253,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* ===================================================
-   3. GALERI SLIDER & LIGHTBOX (FOTO JELAS & UTUH)
+   3. GALERI SLIDER & LIGHTBOX
 =================================================== */
 document.addEventListener("DOMContentLoaded", () => {
     const galleryTrack = document.querySelector(".gallery-track");
@@ -272,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
             galleryTrack.appendChild(clone);
         });
 
-        // Event delegation: Klik foto mana pun untuk memperbesar di Lightbox
+        // Event delegation untuk Lightbox
         galleryTrack.addEventListener('click', (e) => {
             if (e.target.tagName === 'IMG') {
                 const img = e.target;
@@ -293,7 +288,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (modal) {
             modal.classList.remove('active');
             modal.setAttribute('aria-hidden', 'true');
-            // Hanya kembalikan scroll jika cover sudah dibuka
             const cover = document.getElementById('invitation-cover');
             if (!cover || cover.classList.contains('opened')) {
                 document.body.style.overflow = '';
@@ -322,7 +316,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!bgMusic) return;
 
-    // Volume backsound lembut dan nyaman (70%)
     bgMusic.volume = 0.7;
 
     function updateUI(isPlaying) {
@@ -359,26 +352,20 @@ document.addEventListener("DOMContentLoaded", () => {
         updateUI(false);
     }
 
-    // Fungsi membuka undangan dan memutar musik seketika
     let isOpened = false;
     function openInvitation() {
         if (isOpened) return;
         isOpened = true;
 
-        // Putar audio seketika menggunakan event interaksi pengguna ini
         playAudio();
 
-        // Buka cover dengan animasi geser ke atas
         if (cover) {
             cover.classList.add('opened');
         }
         document.body.classList.remove('locked-scroll');
-
-        // Scroll mulus ke bagian atas halaman utama
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Event klik tombol "Buka Undangan"
     if (btnOpen) {
         btnOpen.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -386,17 +373,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Fallback: Jika pengguna mengetuk area cover di luar tombol
     if (cover) {
         cover.addEventListener('click', () => {
             openInvitation();
         });
     }
 
-    // Coba putar otomatis langsung jika browser mengizinkan
     playAudio();
 
-    // Fallback interaksi pertama jika cover tidak terbuka (misal cover dinonaktifkan)
     const unlockAudio = () => {
         if (bgMusic.paused) {
             playAudio();
@@ -410,7 +394,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener(evt, unlockAudio, { passive: true });
     });
 
-    // Tombol manual Play / Pause di pojok layar
     if (musicToggle) {
         musicToggle.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -420,21 +403,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 pauseAudio();
             }
         });
-    }
-});
-
-const inputFoto = document.getElementById("foto-upload");
-const previewFoto = document.getElementById("preview-foto");
-
-inputFoto.addEventListener("change", function () {
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            previewFoto.src = e.target.result;
-        };
-
-        reader.readAsDataURL(file);
     }
 });

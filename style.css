@@ -12,7 +12,7 @@
 }
 
 /* =========================================
-   1. RESET & BACKGROUND UTAMA
+1. RESET & BACKGROUND UTAMA
 ========================================= */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -102,12 +102,12 @@ body.locked-scroll {
 .hero-img {
     width: 170px;
     height: 170px;
-    object-fit: cover;
+    object-fit: contain; 
     object-position: center;
     border-radius: 50%;
     border: 3px solid var(--accent-gold);
     box-shadow: 0 0 25px var(--accent-gold-glow);
-    filter: sepia(0.2) contrast(1.1);
+    background-color: #fff;
 }
 
 /* Animasi Bintang */
@@ -190,7 +190,7 @@ body.locked-scroll {
     letter-spacing: 0.5px;
 }
 
-/* PEMISAH TEKS & AYAT YOHANES 1:5 (SEDIKIT LEBIH KECIL DARI TEMA) */
+/* PEMISAH TEKS & AYAT YOHANES 1:5 */
 .theme-verse-divider, .cover-verse-divider {
     display: flex;
     align-items: center;
@@ -208,7 +208,7 @@ body.locked-scroll {
 
 .verse-text {
     font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 4vw, 1.95rem); /* Sedikit lebih kecil dari Tema */
+    font-size: clamp(1.4rem, 4vw, 1.95rem);
     font-style: italic;
     font-weight: 600;
     color: var(--accent-gold-light);
@@ -217,7 +217,7 @@ body.locked-scroll {
     white-space: nowrap;
 }
 
-/* SUBTEMA: LEBIH KECIL, RAPI, BERKELUARGA */
+/* SUBTEMA */
 .subtheme-card {
     background: rgba(28, 22, 17, 0.7);
     border: 1px solid rgba(212, 175, 55, 0.28);
@@ -372,7 +372,6 @@ body.locked-scroll {
 
 /* =========================================
    5. INFORMASI ACARA & DETAIL KARTU
-   (Proporsional 50-50, Foto Menyesuaikan Div)
 ========================================= */
 .event-details {
     margin: 45px 0;
@@ -453,13 +452,12 @@ h3 {
     font-size: 1.6rem;
 }
 
-/* Foto Lokasi Menyesuaikan Div (Tidak Melebar & Tidak Membuat Kartu Lain Mengecil) */
 .location-photo-box {
     width: 100%;
     height: 120px;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
     border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
@@ -531,7 +529,7 @@ h3 {
 }
 
 /* =========================================
-   6. GALERI FOTO SLIDER (RAPI & PROPORSIONAL)
+   6. GALERI FOTO SLIDER
 ========================================= */
 .gallery {
     width: 100%;
@@ -726,7 +724,7 @@ button[type="submit"]:disabled {
 }
 
 /* =========================================
-   8. NARAHUBUNG & MEDIA SOSIAL (CENTER & RAPI)
+   8. NARAHUBUNG & MEDIA SOSIAL 
 ========================================= */
 .contact-section {
     margin: 50px auto;

@@ -12,22 +12,6 @@
     <meta property="og:url" content="https://gkeyogyakarta.github.io/gkediy/">
     <meta property="og:type" content="website">
 
-    <div class="photo-upload">
-        <label for="foto-upload" class="upload-label">
-            <img id="preview-foto"
-                src="assets/logo.jpeg"
-                alt="Pilih Foto"
-                class="photo-preview">
-        <span>Klik untuk memilih foto</span>
-    </label>
-
-    <input
-        type="file"
-        id="foto-upload"
-        accept="image/*"
-        style="display:none;">
-    </div>
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&display=swap" rel="stylesheet">
     
@@ -41,7 +25,7 @@
     <!-- Bingkai Vintage -->
     <div class="vintage-border"></div>
 
-    <!-- Layar Pembuka Undangan (Cover Screen - Membuka & Memutar Musik Seketika) -->
+    <!-- Layar Pembuka Undangan -->
     <div id="invitation-cover" class="invitation-cover">
         <div class="cover-content">
             <div class="star-glow"></div>
@@ -81,11 +65,10 @@
     </div>
 
     <header class="hero-section">
-        <!-- Ilustrasi Utama -->
+        <!-- Logo GKE DIY Utama -->
         <div class="hero-graphic">
             <div class="star-glow"></div>
-            <!-- Gambar ornamen/gereja bernuansa vintage hangat -->
-            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=600" alt="Suasana Natal Vintage" class="hero-img">
+            <img src="assets/logo.jpeg" alt="Logo GKE DIY" class="hero-img">
         </div>
         
         <div class="hero-tag-box">
@@ -93,7 +76,7 @@
             <p class="hero-org-title">Gereja Kristen Evangelis (GKE) Daerah Istimewa Yogyakarta</p>
         </div>
 
-        <!-- Area Tema Utama (Lebih Besar & Menonjol) -->
+        <!-- Area Tema Utama -->
         <div class="theme-showcase">
             <span class="theme-label-badge">— TEMA NATAL —</span>
             <h1 class="main-theme-heading">“Terang di Tengah Kegelapan”</h1>
@@ -103,7 +86,6 @@
                 <span class="verse-line"></span>
             </div>
             
-            <!-- Area Subtema (Terstruktur Rapi) -->
             <div class="subtheme-card">
                 <span class="subtheme-label-badge">SUBTEMA</span>
                 <h2 class="subtheme-title">GKE DIY RECONNECT</h2>
@@ -159,7 +141,6 @@
                     <strong>TEMPAT & LOKASI</strong>
                     <p class="detail-primary">Grha Pembinaan Iman Kristen (GPIK)</p>
                     <p class="detail-secondary">Kompleks Fasilitas Kerohanian UGM<br>Jl. Podocarpus I, Sendowo, Sinduadi, Mlati, Sleman, DIY</p>
-                    <!-- Link Google Maps Lokasi Acara -->
                     <a href="https://maps.app.goo.gl/1z3pab3PTQvY6eUS6" target="_blank" class="btn-maps" rel="noopener noreferrer">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -207,7 +188,6 @@
             </div>
 
             <form id="rsvp-form">
-                <!-- Status Konfirmasi Sebelumnya (Tampil jika sudah pernah mengisi) -->
                 <div id="rsvp-status-badge" class="rsvp-status-badge" style="display: none;">
                     <div class="status-badge-icon">✅</div>
                     <div class="status-badge-content">
@@ -248,7 +228,6 @@
             </div>
 
             <div class="contact-container">
-                <!-- Kontak WhatsApp -->
                 <div class="contact-card">
                     <div class="contact-icon-box">💬</div>
                     <h4>Narahubung Panitia Natal</h4>
@@ -269,7 +248,6 @@
                     </div>
                 </div>
 
-                <!-- Media Sosial & Komunitas -->
                 <div class="contact-card">
                     <div class="contact-icon-box">✨</div>
                     <h4>Media Sosial Resmi</h4>
@@ -295,7 +273,7 @@
             </div>
         </section>
 
-        <!-- Penutup & Salam Kasih -->
+        <!-- Penutup -->
         <footer class="invitation-footer">
             <div class="divider">✦ 🎄 ✦</div>
             <p class="footer-blessing">"Kiranya Terang Kristus senantiasa menyinari langkah dan kehangatan keluarga kita di tanah rantau."</p>
@@ -303,7 +281,7 @@
         </footer>
     </main>
 
-    <!-- Modal Lightbox Pembesar Foto Galeri (Tidak Terpotong & Resolusi Jernih) -->
+    <!-- Modal Lightbox Pembesar Foto -->
     <div id="image-modal" class="image-modal" aria-hidden="true" role="dialog">
         <div class="modal-overlay" id="modal-overlay"></div>
         <div class="modal-box">
@@ -319,7 +297,7 @@
         Browser Anda tidak mendukung elemen audio.
     </audio>
 
-    <!-- Tombol Kontrol Musik Mengambang -->
+    <!-- Tombol Kontrol Musik -->
     <button id="music-toggle" class="music-toggle paused" aria-label="Nyalakan atau matikan musik latar" title="Nyalakan/Matikan Musik">
         <span class="icon-playing">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -338,7 +316,6 @@
         </span>
     </button>
 
-    <!-- Hubungkan ke file JavaScript terpisah -->
     <script src="script.js"></script>
 </body>
 </html>
