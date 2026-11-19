@@ -585,10 +585,140 @@ h3 {
 }
 
 /* =========================================
-   7. FORM RSVP
+   7. FORM RSVP & TAMPILAN TAMU UNDANGAN
 ========================================= */
 .rsvp {
     margin: 45px 0;
+}
+
+/* Kartu Khusus Tamu Undangan (Akses Read-Only / Media Sosial) */
+.rsvp-guest-notice {
+    background: var(--card-bg);
+    border: 1px solid var(--accent-gold);
+    border-radius: 14px;
+    padding: 34px 26px;
+    max-width: 580px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(212, 175, 55, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+}
+
+.rsvp-guest-notice::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+
+.guest-notice-pill {
+    display: inline-block;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 5px 16px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+}
+
+.guest-notice-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--accent-gold-light);
+    margin: 0 0 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.guest-notice-desc {
+    color: var(--text-light);
+    font-size: 0.94rem;
+    line-height: 1.65;
+    margin: 0 0 20px;
+}
+
+.guest-notice-box {
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    text-align: left;
+    margin-bottom: 22px;
+}
+
+.notice-icon-circle {
+    width: 34px;
+    height: 34px;
+    background: rgba(212, 175, 55, 0.2);
+    border: 1px solid var(--accent-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.notice-text strong {
+    display: block;
+    color: var(--accent-gold-light);
+    font-size: 0.92rem;
+    margin-bottom: 4px;
+}
+
+.notice-text p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.guest-notice-contact {
+    margin-top: 15px;
+    padding-top: 18px;
+    border-top: 1px dashed rgba(212, 175, 55, 0.2);
+}
+
+.contact-prompt {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.btn-guest-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.94rem;
+    padding: 13px 22px;
+    border-radius: 8px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.35);
+}
+
+.btn-guest-wa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
 }
 
 .rsvp form {
@@ -1291,6 +1421,16 @@ button.btn-open-invitation:hover {
     }
     .rsvp form {
         padding: 24px 18px;
+    }
+    .rsvp-guest-notice {
+        padding: 24px 16px;
+    }
+    .guest-notice-title {
+        font-size: 1.2rem;
+    }
+    .btn-guest-wa {
+        width: 100%;
+        box-sizing: border-box;
     }
     .contact-card {
         padding: 24px 16px;

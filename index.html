@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Natal GKE Daerah Istimewa Yogyakarta</title>
     
-    <!-- META TAGS UNTUK PREVIEW WHATSAPP -->
+    <!-- META TAGS KEAMANAN & PREVIEW MEDSOS -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="robots" content="index, follow">
     <meta property="og:title" content="Undangan Natal GKE DIY Reconnect">
     <meta property="og:description" content="Syalom! Kami mengundang Bapak/Ibu/Saudara/i untuk merayakan Natal bersama dalam kehangatan kekeluargaan di tanah rantau.">
     <meta property="og:image" content="https://gkeyogyakarta.github.io/gkediy/assets/Undangan_Digital_GKE_DIY.jpg">
     <meta property="og:url" content="https://gkeyogyakarta.github.io/gkediy/">
     <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Undangan Natal GKE DIY Reconnect">
+    <meta name="twitter:description" content="Syalom! Kami mengundang Bapak/Ibu/Saudara/i untuk merayakan Natal bersama dalam kehangatan kekeluargaan di tanah rantau.">
+    <meta name="twitter:image" content="https://gkeyogyakarta.github.io/gkediy/assets/Undangan_Digital_GKE_DIY.jpg">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&display=swap" rel="stylesheet">
@@ -180,14 +187,42 @@
             </div>
         </section>
 
-        <!-- Formulir RSVP -->
-        <section class="rsvp">
+        <!-- Formulir RSVP & Informasi Akses Undangan -->
+        <section class="rsvp" id="rsvp-section">
             <div class="section-title-wrap">
-                <h3>Konfirmasi Kehadiran</h3>
-                <p class="section-subtitle">Mohon konfirmasikan kehadiran Bapak/Ibu/Saudara/i untuk kenyamanan bersama</p>
+                <h3 id="rsvp-title">Konfirmasi Kehadiran</h3>
+                <p class="section-subtitle" id="rsvp-subtitle">Mohon konfirmasikan kehadiran Bapak/Ibu/Saudara/i untuk kenyamanan bersama</p>
             </div>
 
-            <form id="rsvp-form">
+            <!-- Tampilan Khusus Tamu Undangan (Akses Terbuka / QR Media Sosial - Read Only) -->
+            <div id="rsvp-guest-notice" class="rsvp-guest-notice" style="display: none;">
+                <div class="guest-notice-pill">✦ Undangan Terbuka Media Sosial ✦</div>
+                <h4 class="guest-notice-title">Status: Tamu Undangan</h4>
+                <p class="guest-notice-desc">
+                    Syalom! Anda mengakses undangan ini sebagai <strong>Tamu Undangan</strong> melalui media sosial. Seluruh susunan warta ibadah dan perayaan Natal, waktu, denah lokasi, serta dokumentasi kebersamaan dapat Anda lihat secara lengkap pada halaman ini.
+                </p>
+
+                <div class="guest-notice-box">
+                    <div class="notice-icon-circle">🔒</div>
+                    <div class="notice-text">
+                        <strong>Akses Khusus Baca (Hanya Melihat Isi Undangan)</strong>
+                        <p>Untuk menjaga ketertiban data jemaat dan estimasi kapasitas ruangan, formulir konfirmasi online hanya dibuka untuk undangan personal terdaftar. Tamu Undangan tidak dapat dan tidak perlu memasukkan data diri.</p>
+                    </div>
+                </div>
+
+                <div class="guest-notice-contact">
+                    <p class="contact-prompt">Bila Bapak/Ibu/Saudara/i berencana hadir atau memiliki pertanyaan seputar acara, silakan langsung menghubungi Narahubung Panitia Natal melalui WhatsApp:</p>
+                    <a href="https://wa.me/6281234567890?text=Syalom%20Panitia%20Natal%20GKE%20DIY%202026,%20saya%20mengakses%20undangan%20melalui%20QR%20media%20sosial%20dan%20ingin%20bertanya%20seputar%20kehadiran/acara." target="_blank" rel="noopener noreferrer" class="btn-guest-wa">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+                        </svg>
+                        <span>Hubungi Narahubung Panitia (WhatsApp)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Formulir RSVP (Hanya Aktif untuk Undangan Personal) -->
+            <form id="rsvp-form" autocomplete="off">
                 <div id="rsvp-status-badge" class="rsvp-status-badge" style="display: none;">
                     <div class="status-badge-icon">✅</div>
                     <div class="status-badge-content">
@@ -209,14 +244,14 @@
 
                 <div class="form-group" id="group-jumlah">
                     <label for="jumlah">Jumlah orang yang hadir:</label>
-                    <input type="number" id="jumlah" name="jumlah" min="1" max="50" placeholder="Contoh: 2" required>
-                    <small class="form-hint">Termasuk Anda dan anggota keluarga yang hadir bersama</small>
+                    <input type="number" id="jumlah" name="jumlah" min="1" max="20" inputmode="numeric" placeholder="Contoh: 2" required>
+                    <small class="form-hint">Termasuk Anda dan anggota keluarga yang hadir bersama (maksimal 20 orang)</small>
                 </div>
 
                 <button type="submit" id="submit-btn">
                     <span id="btn-text">Kirim Konfirmasi Kehadiran</span>
                 </button>
-                <p id="form-status" class="status-msg"></p>
+                <p id="form-status" class="status-msg" aria-live="polite"></p>
             </form>
         </section>
 
