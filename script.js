@@ -357,13 +357,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (kehadiran === 'Hadir') {
                 const parsedVal = parseInt(jumlahInput ? jumlahInput.value : '1', 10);
-                if (isNaN(parsedVal) || parsedVal < 1) {
-                    jumlah = 1;
-                } else if (parsedVal > 20) {
-                    jumlah = 20; // Batas atas demi keamanan kapasitas
-                } else {
-                    jumlah = parsedVal;
-                }
+                // Tanpa batas maksimal tamu (bebas sesuai jumlah keluarga/rombongan)
+                jumlah = (!isNaN(parsedVal) && parsedVal >= 1) ? parsedVal : 1;
             } else {
                 jumlah = 0;
             }
@@ -371,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (submitBtn) submitBtn.disabled = true;
             if (btnText) btnText.textContent = "Menyimpan...";
             if (formStatus) {
-                formStatus.textContent = "Sedang memproses konfirmasi kehadiran...";
+                formStatus.textContent = "Sedang memperbarui konfirmasi kehadiran Anda...";
                 formStatus.className = "status-msg loading";
             }
 
@@ -386,12 +381,14 @@ document.addEventListener("DOMContentLoaded", () => {
             safeSetStorage(sanitizedKey, JSON.stringify(payload));
 
             // Kirim ke Google Spreadsheet dengan Timeout Controller (Maksimal 8 detik)
+            // Menyerahkan parameter action: 'upsert' agar script Google Sheet menimpa baris jika nama sudah ada
             try {
                 if (URL_APPS_SCRIPT) {
                     const controller = new AbortController();
                     const timeoutId = setTimeout(() => controller.abort(), 8000);
 
                     const formData = new FormData();
+                    formData.append('action', 'upsert');
                     formData.append('nama', guestName);
                     formData.append('kehadiran', kehadiran);
                     formData.append('jumlah', jumlah);
